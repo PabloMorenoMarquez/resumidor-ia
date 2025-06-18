@@ -1,0 +1,5 @@
+flask
+openai
+PyMuPDF
+fpdf
+markdown2

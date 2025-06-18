@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resumidor IA para estudiantes</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f9fafb; color: #333; padding: 2em; max-width: 900px; margin: auto; }
+    h1, h2 { color: #1e40af; }
+    form { background: white; padding: 1.5em; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05); margin-bottom: 2em; }
+    label { font-weight: 600; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.6em; margin-top: 0.4em; border-radius: 6px; border: 1px solid #ccc; }
+    input[type="submit"], button { background: #2563eb; color: white; border: none; padding: 0.8em 1.2em; margin-top: 1em; border-radius: 6px; cursor: pointer; }
+    pre { background: #eef2f7; padding: 1em; border-radius: 10px; white-space: pre-wrap; font-size: 1.1rem; }
+    .form-group { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Resumidor inteligente con IA</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    <label>Archivo PDF:</label>
+    <input type="file" name="pdf" accept="application/pdf">
+    <label>O escribe texto:</label>
+    <textarea name="texto" rows="10" placeholder="Escribe tu contenido..."></textarea>
+    <input type="submit" value="Resumir">
+  </form>
+
+  {% if resumen %}
+    <h2>Resumen generado:</h2>
+    <pre>{{ resumen_html|safe }}</pre>
+    <form action="/descargar" method="post">
+      <input type="hidden" name="resumen" value="{{ resumen }}">
+      <button type="submit">📄 Descargar resumen en PDF</button>
+    </form>
+  {% endif %}
+
+  <hr>
+
+  <h2>📬 Suscribirse</h2>
+  <form method="post" action="/subscribe">
+    <label for="email">Correo electrónico:</label>
+    <input type="email" name="email" required placeholder="tucorreo@ejemplo.com">
+    <input type="submit" value="Suscribirme">
+  </form>
+
+  <h2>💬 Enviar feedback</h2>
+  <form method="post" action="/feedback">
+    <label for="comentario">¿Qué mejorarías o qué te ha gustado?</label>
+    <textarea name="comentario" rows="4" required></textarea>
+    <input type="submit" value="Enviar feedback">
+  </form>
+</body>
+</html>
