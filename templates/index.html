@@ -1,53 +1,311 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <title>Resumidor IA para estudiantes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Resumidor inteligente de PDF y texto con IA para estudiantes | Ahorra tiempo y mejora tus notas</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+
+
+
+  <meta name="description"
+    content="Utiliza nuestra herramienta gratuita con inteligencia artificial para generar resúmenes claros y efectivos de PDFs y textos para estudiantes. Optimiza tu estudio y comprende mejor tus apuntes." />
+  <meta name="keywords"
+    content="resumen automático, inteligencia artificial, IA para estudiantes, resumen PDF, resumen texto, estudiar mejor, herramienta educativa, UML" />
+  <meta name="author" content="Tu Nombre o Marca" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://tusitio.com" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Resumidor inteligente de PDF y texto con IA para estudiantes" />
+  <meta property="og:description"
+    content="Genera resúmenes claros y precisos para estudiar mejor y ahorrar tiempo con nuestra IA." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tusitio.com" />
+  <meta property="og:image" content="https://tusitio.com/imagen_preview.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Resumidor inteligente de PDF y texto con IA para estudiantes" />
+  <meta name="twitter:description"
+    content="Genera resúmenes claros y precisos para estudiar mejor y ahorrar tiempo con nuestra IA." />
+  <meta name="twitter:image" content="https://tusitio.com/imagen_preview.jpg" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Resumidor inteligente de PDF y texto con IA",
+    "operatingSystem": "Web",
+    "applicationCategory": "EducationApplication",
+    "description": "Herramienta online para generar resúmenes claros y precisos de PDFs y textos para estudiantes.",
+    "url": "https://tusitio.com",
+    "author": {
+      "@type": "Person",
+      "name": "Tu Nombre o Marca"
+    }
+  }
+  </script>
+
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f9fafb; color: #333; padding: 2em; max-width: 900px; margin: auto; }
-    h1, h2 { color: #1e40af; }
-    form { background: white; padding: 1.5em; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05); margin-bottom: 2em; }
-    label { font-weight: 600; margin-top: 1em; display: block; }
-    input, textarea { width: 100%; padding: 0.6em; margin-top: 0.4em; border-radius: 6px; border: 1px solid #ccc; }
-    input[type="submit"], button { background: #2563eb; color: white; border: none; padding: 0.8em 1.2em; margin-top: 1em; border-radius: 6px; cursor: pointer; }
-    pre { background: #eef2f7; padding: 1em; border-radius: 10px; white-space: pre-wrap; font-size: 1.1rem; }
-    .form-group { margin-top: 1em; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: #222;
+      margin: 1rem auto;
+      max-width: 900px;
+      padding: 0 1rem;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      margin-bottom: 0.25rem;
+      color: #0077cc;
+    }
+
+    h2,
+    h3 {
+      color: #333;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p.lead {
+      font-size: 1.15rem;
+      color: #444;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+    }
+
+    ul.benefits {
+      list-style: none;
+      /* Quitar bullets por defecto */
+      padding-left: 1.2em;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      color: #555;
+    }
+
+    ul.benefits li {
+      position: relative;
+      margin-bottom: 0.8rem;
+      padding-left: 1.8em;
+      /* espacio para el icono */
+      font-weight: 600;
+    }
+
+    ul.benefits li::before {
+      content: "✔";
+      /* símbolo tick */
+      position: absolute;
+      left: 0;
+      color: #28a745;
+      /* verde agradable */
+      font-weight: bold;
+    }
+
+    form label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.3rem;
+      margin-top: 1rem;
+      color: #555;
+    }
+
+    input[type="file"],
+    textarea {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="file"]:focus,
+    textarea:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+
+    input[type="submit"],
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      margin-top: 1.5rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover,
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    pre {
+      background: #eef2f6;
+      padding: 1rem;
+      border-radius: 10px;
+      white-space: pre-wrap;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1rem;
+      color: #333;
+      overflow-x: auto;
+      margin-top: 1rem;
+      max-height: 400px;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* FAQs */
+    .faq {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+
+    .faq details {
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      background: white;
+      cursor: pointer;
+    }
+
+    .faq summary {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #0077cc;
+      outline: none;
+    }
   </style>
 </head>
+
 <body>
-  <h1>Resumidor inteligente con IA</h1>
+  <header>
+    <h1>Resumidor inteligente de PDF y texto con IA para estudiantes</h1>
+    <p class="lead">¿Quieres ahorrar tiempo y mejorar tus notas? Usa nuestra herramienta gratuita que genera resúmenes
+      claros y precisos de PDFs y textos escritos. Ideal para estudiantes, profesores y autodidactas.</p>
 
-  <form method="post" enctype="multipart/form-data">
-    <label>Archivo PDF:</label>
-    <input type="file" name="pdf" accept="application/pdf">
-    <label>O escribe texto:</label>
-    <textarea name="texto" rows="10" placeholder="Escribe tu contenido..."></textarea>
-    <input type="submit" value="Resumir">
-  </form>
+    <ul class="benefits" aria-label="Beneficios del resumidor inteligente">
+      <li>Resúmenes enfocados en conceptos clave y definiciones</li>
+      <li>Fácil de usar: sube tu PDF o pega texto y obtén resultados al instante</li>
+      <li>Compatible con diagramas UML y explicaciones didácticas</li>
+      <li>Ahorra horas de estudio con resúmenes automatizados</li>
+      <li>Descarga tus resúmenes en formato PDF para estudiar offline</li>
+    </ul>
 
-  {% if resumen %}
-    <h2>Resumen generado:</h2>
-    <pre>{{ resumen_html|safe }}</pre>
-    <form action="/descargar" method="post">
-      <input type="hidden" name="resumen" value="{{ resumen }}">
-      <button type="submit">📄 Descargar resumen en PDF</button>
+  </header>
+
+  <main>
+    <section aria-labelledby="form-title">
+      <h2 id="form-title">Sube un PDF o escribe texto para resumir</h2>
+      <form method="post" enctype="multipart/form-data" aria-describedby="form-instructions" novalidate>
+        <label for="pdf">Archivo PDF:</label>
+        <input type="file" id="pdf" name="pdf" accept=".pdf" aria-label="Subir archivo PDF para resumir" />
+
+        <label for="texto">O escribe texto:</label>
+        <textarea id="texto" name="texto" rows="10" placeholder="Escribe aquí tu contenido..."
+          aria-label="Área de texto para ingresar contenido a resumir"></textarea>
+
+        <input type="submit" value="Resumir" />
+      </form>
+    </section>
+
+    {% if resumen %}
+    <hr />
+    <section aria-labelledby="summary-title">
+      <h2 id="summary-title">Resumen generado:</h2>
+      <pre role="region" aria-live="polite" aria-atomic="true">{{ resumen }}</pre>
+
+      <form action="/descargar" method="post" aria-label="Descargar resumen en PDF">
+        <input type="hidden" name="resumen" value="{{ resumen }}" />
+        <button type="submit">📄 Descargar resumen en PDF</button>
+      </form>
+    </section>
+    {% endif %}
+
+    <section class="faq" aria-label="Preguntas frecuentes">
+      <h2>Preguntas frecuentes (FAQs)</h2>
+
+      <details>
+        <summary>¿Es gratis usar la herramienta?</summary>
+        <p>Sí, al inicio ofrecemos el servicio completamente gratis para que puedas probarlo y optimizar tu estudio.</p>
+      </details>
+
+      <details>
+        <summary>¿Qué tipo de documentos puedo subir?</summary>
+        <p>Puedes subir archivos PDF o pegar texto plano directamente para resumir.</p>
+      </details>
+
+      <details>
+        <summary>¿Puedo descargar el resumen?</summary>
+        <p>Sí, después de generar el resumen puedes descargarlo en formato PDF para estudiar offline.</p>
+      </details>
+
+      <details>
+        <summary>¿Cómo garantiza la calidad del resumen?</summary>
+        <p>Usamos inteligencia artificial avanzada que enfoca el resumen en conceptos clave, definiciones y diagramas
+          UML importantes para estudiantes.</p>
+      </details>
+    </section>
+
+    <h2>📬 Suscribirse</h2>
+    <form id="subscribe-form" method="post" action="/subscribe">
+      <label for="email">Correo electrónico:</label>
+      <input type="email" name="email" required placeholder="tucorreo@ejemplo.com" style="
+      width: 100%;
+      padding: 0.6em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;">
+      <input type="submit" value="Suscribirme">
     </form>
-  {% endif %}
 
-  <hr>
+    <h2>💬 Enviar feedback</h2>
+    <form method="post" action="/feedback">
+      <label for="comentario">¿Qué mejorarías o qué te ha gustado?</label>
+      <textarea name="comentario" rows="4" required></textarea>
+      <input type="submit" value="Enviar feedback">
+    </form>
+  </main>
 
-  <h2>📬 Suscribirse</h2>
-  <form method="post" action="/subscribe">
-    <label for="email">Correo electrónico:</label>
-    <input type="email" name="email" required placeholder="tucorreo@ejemplo.com">
-    <input type="submit" value="Suscribirme">
-  </form>
-
-  <h2>💬 Enviar feedback</h2>
-  <form method="post" action="/feedback">
-    <label for="comentario">¿Qué mejorarías o qué te ha gustado?</label>
-    <textarea name="comentario" rows="4" required></textarea>
-    <input type="submit" value="Enviar feedback">
-  </form>
+  <script>
+    // Validación básica formulario suscripción
+    document.getElementById('subscribe-form')?.addEventListener('submit', function (e) {
+      const emailInput = e.target.email;
+      if (!emailInput.value || !emailInput.value.includes('@')) {
+        alert('Por favor ingresa un correo válido.');
+        emailInput.focus();
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
+
 </html>
