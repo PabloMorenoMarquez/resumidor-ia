@@ -3,7 +3,7 @@ import openai, fitz, markdown2, requests
 import os
 from fpdf import FPDF
 
-openai.api_key = "Tu_clave_API"
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 app = Flask(__name__)
 
