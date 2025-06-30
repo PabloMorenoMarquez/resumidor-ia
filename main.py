@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, send_file
 import openai, fitz, markdown2, requests
+import os
 from fpdf import FPDF
 
 openai.api_key = "Tu_clave_API"
