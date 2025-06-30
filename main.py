@@ -1,10 +1,8 @@
 from flask import Flask, request, render_template, send_file
-from pyngrok import ngrok
-import openai, fitz, markdown2
+import openai, fitz, markdown2, requests
 from fpdf import FPDF
 
 openai.api_key = "Tu_clave_API"
-ngrok.set_auth_token("Tu_clave_API")
 
 app = Flask(__name__)
 
@@ -114,6 +112,11 @@ def subscribe():
     if "@" in email:
         with open("subscribers.csv", "a") as f:
             f.write(email + "\n")
+	# 🔁 Enviar a Make (webhook)
+        try:
+            requests.post("https://hook.eu2.make.com/sz2liic6b8gkg8ljv21ix6iih92zsg6o", json={"email": email})
+        except Exception as e:
+            print(f"Error al enviar a Make: {e}")
     return "<script>alert('¡Gracias por suscribirte!'); window.location.href='/'</script>"
 
 @app.route("/feedback", methods=["POST"])
@@ -124,6 +127,5 @@ def feedback():
             f.write(comentario + "\n")
     return "<script>alert('¡Gracias por tu feedback!'); window.location.href='/'</script>"
 
-public_url = ngrok.connect(5000)
-print(f"🔗 Tu app está en: {public_url}")
-app.run(port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

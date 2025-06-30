@@ -3,3 +3,4 @@ openai
 PyMuPDF
 fpdf
 markdown2
+requests
