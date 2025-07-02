@@ -190,7 +190,7 @@ def feedback():
             response.raise_for_status()  # lanzará excepción si status no es 2xx
         except Exception as e:
             print(f"Error enviando feedback a Make: {e}")
-    return redirect("/")
+    return "<script>alert('¡Gracias por tu comentario!'); window.location.href='/'</script>"
 
 
 if __name__ == "__main__":
