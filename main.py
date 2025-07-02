@@ -146,6 +146,7 @@ def index():
         if contenido:
             resumen = generar_resumen(contenido)
             resumen = limpiar_markdown(resumen)
+            resumen = resumen.replace('\n', '  \n')
             resumen_html = markdown2.markdown(resumen)
         else:
             resumen = "No se proporcionó texto válido."
