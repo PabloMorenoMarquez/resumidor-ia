@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, render_template_string, send_file
 import openai, fitz, markdown2, requests
 import os
 import re
