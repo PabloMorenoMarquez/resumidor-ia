@@ -145,13 +145,14 @@ def index():
 
         if contenido:
             resumen = generar_resumen(contenido)
-	    resumen = limpiar_markdown(resumen)
+            resumen = limpiar_markdown(resumen)
             resumen_html = markdown2.markdown(resumen)
-	else:
-	     resumen = "No se proporcionó texto válido."
-             resumen_html = "<p style='color:red;'>No se proporcionó texto válido.</p>"
+        else:
+            resumen = "No se proporcionó texto válido."
+            resumen_html = "<p style='color:red;'>No se proporcionó texto válido.</p>"
 
     return render_template_string(HTML, resumen=resumen, resumen_html=resumen_html)
+
 
 @app.route("/descargar", methods=["POST"])
 def descargar():
