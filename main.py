@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, render_template_string, send_file
+from flask import Flask, request, render_template, send_file
 import openai, fitz, markdown2, requests
 import os
 import re
@@ -151,7 +151,7 @@ def index():
             resumen = "No se proporcionó texto válido."
             resumen_html = "<p style='color:red;'>No se proporcionó texto válido.</p>"
 
-    return render_template_string(html, resumen=resumen, resumen_html=resumen_html)
+    return render_template("index.html", resumen=resumen, resumen_html=resumen_html)
 
 
 @app.route("/descargar", methods=["POST"])
