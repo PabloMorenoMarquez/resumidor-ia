@@ -181,12 +181,17 @@ import requests
 def feedback():
     comentario = request.form.get("comentario")
     if comentario:
-        # Enviar a Make webhook
         try:
-            requests.post("https://hook.eu2.make.com/99hgfk2ta5n4tmjn0wvhfic69y4woixm", json={"comentario": comentario})
+            response = requests.post(
+                "https://hook.eu2.make.com/99hgfk2ta5n4tmjn0wvhfic69y4woixm",
+                json={"comentario": comentario},
+                timeout=5  # para no colgar la app si el webhook no responde
+            )
+            response.raise_for_status()  # lanzará excepción si status no es 2xx
         except Exception as e:
             print(f"Error enviando feedback a Make: {e}")
     return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
