@@ -151,7 +151,7 @@ def index():
             resumen = "No se proporcionó texto válido."
             resumen_html = "<p style='color:red;'>No se proporcionó texto válido.</p>"
 
-    return render_template_string(HTML, resumen=resumen, resumen_html=resumen_html)
+    return render_template_string(html, resumen=resumen, resumen_html=resumen_html)
 
 
 @app.route("/descargar", methods=["POST"])
